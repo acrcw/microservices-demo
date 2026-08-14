@@ -22,6 +22,7 @@ import (
 
 	"cloud.google.com/go/profiler"
 	"github.com/sirupsen/logrus"
+	// "go.opentelemetry.io/contrib/bridges/otellogrus"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -40,6 +41,7 @@ const (
 var log *logrus.Logger
 
 func init() {
+	// logrus.AddHook(otellogrus.NewHook())
 	log = logrus.New()
 	log.Level = logrus.DebugLevel
 	log.Formatter = &logrus.JSONFormatter{

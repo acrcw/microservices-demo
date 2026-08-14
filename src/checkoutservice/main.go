@@ -25,6 +25,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	// "go.opentelemetry.io/contrib/bridges/otellogrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
@@ -50,6 +51,7 @@ const (
 var log *logrus.Logger
 
 func init() {
+	// logrus.AddHook(otellogrus.NewHook())
 	log = logrus.New()
 	log.Level = logrus.DebugLevel
 	log.Formatter = &logrus.JSONFormatter{

@@ -26,6 +26,9 @@ spec:
     metadata:
       labels:
         app: adservice
+      annotations:
+        resource.opentelemetry.io/service.name: adservice
+        instrumentation.opentelemetry.io/inject-java: "opentelemetry/auto-instrumentation"
     spec:
       serviceAccountName: adservice
       terminationGracePeriodSeconds: 5

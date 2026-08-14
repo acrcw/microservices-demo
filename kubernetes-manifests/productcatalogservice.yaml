@@ -26,6 +26,9 @@ spec:
     metadata:
       labels:
         app: productcatalogservice
+      annotations:
+        resource.opentelemetry.io/service.name: productcatalogservice
+        instrumentation.opentelemetry.io/inject-go: "opentelemetry/auto-instrumentation"
     spec:
       serviceAccountName: productcatalogservice
       terminationGracePeriodSeconds: 5
@@ -47,6 +50,14 @@ spec:
         ports:
         - containerPort: 3550
         env:
+        - name: OTEL_SERVICE_NAME
+          value: "productcatalogservice"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://k8s-otel-collector-deployment-collector.opentelemetry.svc.cluster.local:4318"
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: "status.hostIP"
         - name: PORT
           value: "3550"
         - name: DISABLE_PROFILER

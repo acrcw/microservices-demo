@@ -25,9 +25,16 @@ COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
 
+RUN go install go.opentelemetry.io/otelc/tool/cmd/otelc@latest
+
+RUN otelc setup
+# Download OpenTelemetry instrumentation tool (otelc) pre-built binary
+# ADD https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation/releases/download/v1.0.1/otelc-linux-amd64  /src
+# RUN chmod +x /src/otelc-linux-amd64
+
 # Skaffold passes in debug-oriented compiler flags
 ARG SKAFFOLD_GO_GCFLAGS
-RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w" -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o /go/bin/frontend .
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 otelc go build -ldflags="-s -w" -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o /go/bin/frontend .
 
 FROM gcr.io/distroless/static
 WORKDIR /src

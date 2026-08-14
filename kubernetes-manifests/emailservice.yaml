@@ -26,6 +26,10 @@ spec:
     metadata:
       labels:
         app: emailservice
+      annotations:
+        resource.opentelemetry.io/service.name: emailservice
+        instrumentation.opentelemetry.io/inject-python: "opentelemetry/auto-instrumentation"
+
     spec:
       serviceAccountName: emailservice
       terminationGracePeriodSeconds: 5

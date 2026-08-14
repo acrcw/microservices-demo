@@ -26,6 +26,9 @@ spec:
     metadata:
       labels:
         app: currencyservice
+      annotations:
+        resource.opentelemetry.io/service.name: currencyservice
+        instrumentation.opentelemetry.io/inject-nodejs: "opentelemetry/auto-instrumentation"
     spec:
       serviceAccountName: currencyservice
       terminationGracePeriodSeconds: 5

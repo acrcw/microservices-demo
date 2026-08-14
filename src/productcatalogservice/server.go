@@ -33,6 +33,7 @@ import (
 	"cloud.google.com/go/profiler"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	// "go.opentelemetry.io/contrib/bridges/otellogrus"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -52,6 +53,7 @@ var (
 )
 
 func init() {
+	// logrus.AddHook(otellogrus.NewHook())
 	log = logrus.New()
 	log.Formatter = &logrus.JSONFormatter{
 		FieldMap: logrus.FieldMap{
